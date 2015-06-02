@@ -13,9 +13,13 @@ include ::apt
     location    => 'http://apt.postgresql.org/pub/repos/apt/',
     release     => "${::lsbdistcodename}-pgdg",
     repos       => "main ${postgresql::repo::version}",
-    key         => 'ACCC4CF8',
-    key_source  => 'https://www.postgresql.org/media/keys/ACCC4CF8.asc',
-    include_src => false,
+    key {
+      'id' => 'ACCC4CF8',
+      'source'  => 'https://www.postgresql.org/media/keys/ACCC4CF8.asc',
+    },
+    include {
+      'src' => false,
+    }
   }
 
   Apt::Source['apt.postgresql.org']->Package<|tag == 'postgresql'|>
